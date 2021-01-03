@@ -59,12 +59,12 @@ echo.
 echo. =============================
 echo. Enter file's path to scan:
 set /p file=
-type %file%>sctar.txt
+powershell Get-FileHash %file% -Algorithm MD5 ^| Format-Table -Property Hash>sctar.txt
 cls
 for /f "tokens=* delims= " %%x in (sctar.txt) do (
-    for /f "tokens=* delims= " %%y in (Virus_Database.txt)do (
-        if "%%x" == "%%y" (
-            del /q %file%
+	for /f "tokens=* delims= " %%y in (Virus_Database.txt) do (
+		if %%x == %%y (
+			del /q %file%
             del /q sctar.txt
             echo.
             echo.
@@ -76,8 +76,8 @@ for /f "tokens=* delims= " %%x in (sctar.txt) do (
             echo. Press any key to get back to menu...
             pause >nul
             goto menu
-        )
-    )
+		)
+	)
 )
 echo. No threats found!
 pause
