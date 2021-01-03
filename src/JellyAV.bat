@@ -63,22 +63,22 @@ powershell Get-FileHash %file% -Algorithm MD5 ^| Format-Table -Property Hash>sct
 cls
 for /f "tokens=* delims= " %%x in (sctar.txt) do (
 	for /f "tokens=* delims= " %%y in (Virus_Database.txt) do (
-		if %%x == %%y (
+		if "%%x" == "%%y" (
 			del /q %file%
-            del /q sctar.txt
-            echo.
-            echo.
-            echo.
-            echo. =====================================
-            echo. %file% was infected and deleted.
-            echo.
-            echo.
-            echo. Press any key to get back to menu...
-            pause >nul
-            goto menu
+			echo.
+			echo.
+			echo.
+			echo. =====================================
+			echo. %file% was infected and deleted.
+			echo.
+			echo.
+			echo. Press any key to get back to menu...
+			pause >nul
+			goto menu
 		)
 	)
 )
+del /q sctar.txt
 echo. No threats found!
 pause
 goto menu
